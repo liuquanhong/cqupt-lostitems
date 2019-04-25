@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置注解的处理器适配器和映射器-->
+    <mvc:annotation-driven conversion-service="conversionService">
+        <mvc:message-converters>
+           <!-- <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"></bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--批量配置处理器-->
+    <context:component-scan base-package="com.nmid.items.controller"></context:component-scan>
+    <context:component-scan base-package="com.nmid.items.controller.ExceptionHandler"></context:component-scan>
+
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    </bean>
+
+    <!-- 将springmvc不能处理的静态资源交给tomcat处理 -->
+    <mvc:default-servlet-handler/>
+
+    <!--配置多组件处理器-->
+    <!-- 设置上传文件最大值   1M=1*1024*1024(B)=1048576 bytes -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+
+    <!--配置日期转换器-->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.nmid.items.controller.messageConverter.DateConverter" />
+            </list>
+        </property>
+    </bean>
+    <!--&lt;!&ndash;配置处理ajax跨越访问的请求的拦截器&ndash;&gt;
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.nmid.page.web.filter.CorsResolveInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+    <!--spring4.2版本及以上的版本对跨越访问的支持-->
+   <!-- <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allowed-methods="GET,POST,OPTIONS" allowed-headers="*"/>
+    </mvc:cors>-->
+</beans>

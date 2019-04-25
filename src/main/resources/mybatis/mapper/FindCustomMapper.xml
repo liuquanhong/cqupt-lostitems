@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nmid.items.mapper.FindCustomMapper">
+    <sql id="FindItemsWithLostUser_Column_List">
+    lid, image, lost_time, lost_address, species, character_str, description, lost_userid
+    uid, username, stdnumber, telephone, email
+  </sql>
+    <!--最新发现物品对应的拾得物品人具体信息-->
+    <sql id="FindItemsWithFindUser_Column_List">
+    fid, image, find_time, find_address, species, character_str, description, find_userid
+    uid, username, stdnumber, telephone, email
+    </sql>
+    <!--拾得物品基本信息-->
+    <sql id="FindItems_Column_List">
+        fid, image, find_time, find_address, species, find_userid, character_str, description,
+        lost_userid, find_status
+    </sql>
+    <!--拾主具体信息-->
+    <sql id="FindUser_Column_List">
+         uid, username, stdnumber, telephone, email, password, imge, lost_id, found_id, integration
+    </sql>
+    <!--映射最新拾得物品信息-->
+    <resultMap id="FindItemsResultMap" type="com.nmid.items.po.Find">
+        <id column="fid" property="fid"></id>
+        <result column="image" property="image"></result>
+        <result column="find_time" property="findTime"></result>
+        <result column="find_address" property="findAddress"></result>
+        <result column="species" property="species"></result>
+        <result column="find_userid" property="findUserid"></result>
+        <result column="character_str" property="characterStr"></result>
+        <result column="description" property="description"></result>
+        <result column="lost_userid" property="lostUserid"></result>
+        <result column="find_status" property="findStatus"></result>
+    </resultMap>
+    <!--映射拾得物品用户信息-->
+    <resultMap id="FindItemsWithUserResultMap" type="com.nmid.items.po.User">
+        <id column="uid" property="uid"></id>
+        <result column="username" property="username"></result>
+        <result column="stdnumber" property="stdnumber"></result>
+        <result column="telephone" property="telephone"></result>
+        <result column="email" property="email"></result>
+        <result column="password" property="password"></result>
+        <result column="imge" property="imge"></result>
+        <result column="lost_id" property="lostId"></result>
+        <result column="found_id" property="foundId"></result>
+        <result column="integration" property="integration"></result>
+    </resultMap>
+
+    <resultMap id="FindItemsWithFindUser" type="com.nmid.items.po.FindCustom">
+        <id column="fid" property="fid"></id>
+        <result column="image" property="image"></result>
+        <result column="find_time" property="findTime"></result>
+        <result column="find_address" property="findAddress"></result>
+        <result column="species" property="species"></result>
+        <result column="character_str" property="characterStr"></result>
+        <result column="description" property="description"></result>
+        <result column="find_userid" property="findUserid"></result>
+        <association property="user" javaType="com.nmid.items.po.User">
+            <id column="uid" property="uid"></id>
+            <result column="username" property="username"></result>
+            <result column="stdnumber" property="stdnumber"></result>
+            <result column="telephone" property="telephone"></result>
+            <result column="email" property="email"></result>
+        </association>
+    </resultMap>
+
+    <resultMap id="FindItemsWithLostUser" type="com.nmid.items.po.LostCustom">
+        <id column="lid" jdbcType="INTEGER" property="lid" />
+        <result column="image" jdbcType="VARCHAR" property="image" />
+        <result column="lost_time" jdbcType="TIMESTAMP" property="lostTime" />
+        <result column="lost_address" jdbcType="VARCHAR" property="lostAddress" />
+        <result column="species" jdbcType="VARCHAR" property="species" />
+        <result column="character_str" jdbcType="VARCHAR" property="characterStr" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="lost_userid" property="lostUserid"></result>
+        <association property="user" javaType="com.nmid.items.po.User">
+            <id column="uid" property="uid"></id>
+            <result column="username" property="username"></result>
+            <result column="stdnumber" property="stdnumber"></result>
+            <result column="telephone" property="telephone"></result>
+            <result column="email" property="email"></result>
+        </association>
+    </resultMap>
+
+
+    <select id="selectFindItemsWithLostUser" parameterType="com.nmid.items.po.Find" resultMap="FindItemsWithLostUser">
+        select
+        <include refid="FindItemsWithLostUser_Column_List" />
+        from lost,user
+        where lost.`character_str`= #{characterStr,jdbcType=INTEGER}
+        <if test="species != null">
+            AND lost.`species`=#{species}
+        </if>
+        AND lost.`lost_userid`=user.`uid`
+        AND lost.`lost_status`=1
+    </select>
+
+    <!--最新拾得物品信息-->
+    <select id="selectFindItemsOrderByTime" resultMap="FindItemsResultMap">
+        select
+        <include refid="FindItems_Column_List"/>
+        from find
+        where find.`find_status`=1
+        ORDER BY find.`find_time`DESC
+    </select>
+    <select id="selectFindItemsWithFindUserByItemsId" parameterType="int" resultMap="FindItemsWithUserResultMap">
+        select
+        <include refid="FindUser_Column_List"/>
+        from find,user
+        where find.`fid`=#{fid} AND find.`find_userid`=user.`uid`
+    </select>
+    <!--修改被归还物品状态-->
+    <update id="updateFindItemsStatus" parameterType="int">
+        update find set  find.`find_status`=3
+        where find.`fid`=#{fid}
+    </update>
+</mapper>

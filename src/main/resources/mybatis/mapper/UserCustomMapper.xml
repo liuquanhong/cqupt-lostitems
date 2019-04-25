@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nmid.items.mapper.UserCustomMapper">
+    <!--用户基本信息-->
+    <sql id="BaseUser_Column_List">
+         uid, username, stdnumber, telephone, email, password, imge, lost_id, found_id, integration
+    </sql>
+    <!--登录时查询用户-->
+    <select id="selectUserByStdNumber" parameterType="String" resultType="com.nmid.items.po.UserCustom">
+        select * from user
+        where user.`stdnumber`=#{stdnumber}
+    </select>
+    <!--用户有选择性更新-->
+    <update id="updateUserByStdNumber" parameterType="com.nmid.items.po.User">
+        update user
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="stdnumber != null">
+                stdnumber = #{stdnumber,jdbcType=CHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="imge != null">
+                imge = #{imge,jdbcType=VARCHAR},
+            </if>
+            <if test="lostId != null">
+                lost_id = #{lostId,jdbcType=INTEGER},
+            </if>
+            <if test="foundId != null">
+                found_id = #{foundId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where user.`stdnumber`= #{stdnumber,jdbcType=INTEGER}
+    </update>
+    <!--查询用户的个人积分-->
+    <select id="selectUserTotalIntegration" parameterType="String" resultType="int">
+        select integration
+        from User
+        where user.`stdnumber`=#{stdnumber}
+    </select>
+    <!--修改用户积分-->
+    <update id="updateUserIntegration" parameterType="String">
+        update user set user.`integration`= user.`integration` + 5
+        where
+        user.`stdnumber`=#{stdnumber}
+    </update>
+    <!--好人榜按积分排名-->
+    <select id="selectGoodManInfo" resultType="com.nmid.items.po.User">
+        select
+        <include refid="BaseUser_Column_List"/>
+        from user
+        order by user.`integration` DESC
+    </select>
+</mapper>

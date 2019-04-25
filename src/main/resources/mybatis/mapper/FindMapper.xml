@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nmid.items.mapper.FindMapper">
+  <resultMap id="BaseResultMap" type="com.nmid.items.po.Find">
+    <id column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="find_time" jdbcType="TIMESTAMP" property="findTime" />
+    <result column="find_address" jdbcType="VARCHAR" property="findAddress" />
+    <result column="species" jdbcType="VARCHAR" property="species" />
+    <result column="find_userid" jdbcType="INTEGER" property="findUserid" />
+    <result column="character_str" jdbcType="VARCHAR" property="characterStr" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="lost_userid" jdbcType="INTEGER" property="lostUserid" />
+    <result column="find_status" jdbcType="INTEGER" property="findStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    fid, image, find_time, find_address, species, find_userid, character_str, description, 
+    lost_userid, find_status
+  </sql>
+  <select id="selectByExample" parameterType="com.nmid.items.po.FindExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from find
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from find
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from find
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nmid.items.po.FindExample">
+    delete from find
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nmid.items.po.Find">
+    insert into find (fid, image, find_time, 
+      find_address, species, find_userid, 
+      character_str, description, lost_userid, 
+      find_status)
+    values (#{fid,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR}, #{findTime,jdbcType=TIMESTAMP}, 
+      #{findAddress,jdbcType=VARCHAR}, #{species,jdbcType=VARCHAR}, #{findUserid,jdbcType=INTEGER}, 
+      #{characterStr,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{lostUserid,jdbcType=INTEGER}, 
+      #{findStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nmid.items.po.Find">
+    insert into find
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="findTime != null">
+        find_time,
+      </if>
+      <if test="findAddress != null">
+        find_address,
+      </if>
+      <if test="species != null">
+        species,
+      </if>
+      <if test="findUserid != null">
+        find_userid,
+      </if>
+      <if test="characterStr != null">
+        character_str,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="lostUserid != null">
+        lost_userid,
+      </if>
+      <if test="findStatus != null">
+        find_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="findTime != null">
+        #{findTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="findAddress != null">
+        #{findAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="species != null">
+        #{species,jdbcType=VARCHAR},
+      </if>
+      <if test="findUserid != null">
+        #{findUserid,jdbcType=INTEGER},
+      </if>
+      <if test="characterStr != null">
+        #{characterStr,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lostUserid != null">
+        #{lostUserid,jdbcType=INTEGER},
+      </if>
+      <if test="findStatus != null">
+        #{findStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nmid.items.po.FindExample" resultType="java.lang.Long">
+    select count(*) from find
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update find
+    <set>
+      <if test="record.fid != null">
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.image != null">
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.findTime != null">
+        find_time = #{record.findTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.findAddress != null">
+        find_address = #{record.findAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.species != null">
+        species = #{record.species,jdbcType=VARCHAR},
+      </if>
+      <if test="record.findUserid != null">
+        find_userid = #{record.findUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.characterStr != null">
+        character_str = #{record.characterStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lostUserid != null">
+        lost_userid = #{record.lostUserid,jdbcType=INTEGER},
+      </if>
+      <if test="record.findStatus != null">
+        find_status = #{record.findStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update find
+    set fid = #{record.fid,jdbcType=INTEGER},
+      image = #{record.image,jdbcType=VARCHAR},
+      find_time = #{record.findTime,jdbcType=TIMESTAMP},
+      find_address = #{record.findAddress,jdbcType=VARCHAR},
+      species = #{record.species,jdbcType=VARCHAR},
+      find_userid = #{record.findUserid,jdbcType=INTEGER},
+      character_str = #{record.characterStr,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      lost_userid = #{record.lostUserid,jdbcType=INTEGER},
+      find_status = #{record.findStatus,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nmid.items.po.Find">
+    update find
+    <set>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="findTime != null">
+        find_time = #{findTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="findAddress != null">
+        find_address = #{findAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="species != null">
+        species = #{species,jdbcType=VARCHAR},
+      </if>
+      <if test="findUserid != null">
+        find_userid = #{findUserid,jdbcType=INTEGER},
+      </if>
+      <if test="characterStr != null">
+        character_str = #{characterStr,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lostUserid != null">
+        lost_userid = #{lostUserid,jdbcType=INTEGER},
+      </if>
+      <if test="findStatus != null">
+        find_status = #{findStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nmid.items.po.Find">
+    update find
+    set image = #{image,jdbcType=VARCHAR},
+      find_time = #{findTime,jdbcType=TIMESTAMP},
+      find_address = #{findAddress,jdbcType=VARCHAR},
+      species = #{species,jdbcType=VARCHAR},
+      find_userid = #{findUserid,jdbcType=INTEGER},
+      character_str = #{characterStr,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      lost_userid = #{lostUserid,jdbcType=INTEGER},
+      find_status = #{findStatus,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

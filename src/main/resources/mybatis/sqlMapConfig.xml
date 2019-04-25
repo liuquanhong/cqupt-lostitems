@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 开启延迟加载
+    <settings>
+        <setting name="aggressiveLazyLoading" value="false"></setting>
+        <setting name="lazyLoadingEnabled" value="true"></setting>
+        开启二级缓存总开关
+        <setting name="CacheEnabled" value="true"/>
+    </settings> -->
+    <typeAliases >
+        <!-- <typeAlias alias="staff" type="com.nmid.mybatis.po.Staff"/> -->
+        <!-- 批量设置别名，为类名或者类名首字母小写 -->
+        <package name="com.nmid.page.po"/>
+    </typeAliases>
+    <!-- 配置mybatis分页插件pageHelper -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+</configuration>

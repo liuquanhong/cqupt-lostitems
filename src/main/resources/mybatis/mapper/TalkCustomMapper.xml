@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nmid.items.mapper.TalkCustomMapper">
+    <sql id="TalkWithUser_Column_List">
+    tid, context, talk_time, talk_userid
+    uid,imge,username,telephone,email
+  </sql>
+    <sql id="userInfo_Column_List">
+         uid, username, stdnumber, telephone, email, password, imge, lost_id, found_id, integration
+    </sql>
+    <resultMap id="TalkWithUserResultMap" type="com.nmid.items.po.TalkCustom">
+        <id column="tid" property="tid"></id>
+        <result column="context" property="context"></result>
+        <result column="talk_time" property="talkTime"></result>
+        <result column="talk_userid" property="talkUserid"></result>
+        <association property="user" javaType="com.nmid.items.po.User">
+            <id column="uid" property="uid"></id>
+            <result column="imge" property="imge"></result>
+            <result column="username" property="username"></result>
+            <result column="telephone" property="telephone"></result>
+            <result column="email" property="email"></result>
+        </association>
+    </resultMap>
+    <resultMap id="TalkWithUserInfoResultMap" type="com.nmid.items.po.User">
+        <id column="uid" property="uid"></id>
+        <result column="stdnumber" property="stdnumber"></result>
+        <result column="telephone" property="telephone"></result>
+        <result column="email" property="email"></result>
+        <result column="password" property="password"></result>
+        <result column="imge" property="imge"></result>
+        <result column="lost_id" property="lostId"></result>
+        <result column="found_id" property="foundId"></result>
+        <result column="integration" property="integration"></result>
+    </resultMap>
+    <select id="selectTalkWithUser" resultMap="TalkWithUserResultMap">
+        select
+        <include refid="TalkWithUser_Column_List"></include>
+        from talk,user
+        where talk.`talk_userid`=user.`uid`
+    </select>
+    <!--点击用户言论查看用户具体信息-->
+    <select id="selectUserInfoByTalkId" parameterType="int" resultMap="TalkWithUserInfoResultMap">
+        select
+        <include refid="userInfo_Column_List"/>
+        from user,talk
+        where talk.`tid`=#{tid} AND talk.`talk_userid`=user.`uid`
+    </select>
+</mapper>
