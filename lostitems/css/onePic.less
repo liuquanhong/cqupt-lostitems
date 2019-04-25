@@ -1,0 +1,288 @@
+* {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	text-decoration: none;
+}
+.top {
+	width: 1200px;
+	padding: 6px 0;
+	height: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: auto;
+	.logo {
+		img {
+			height: 50px;
+			width: auto;
+		}
+	}
+	.logIn-signIn {
+		span {
+			cursor: pointer;
+		}
+		.LginIn-signInIn {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			span {
+				cursor: pointer;
+			}
+			img {
+				width: 35px;
+				height: 35px;
+			}
+		}
+		
+	}
+}
+.leading {
+	width: 100%;
+	background-image: url(../imgs/leadingBC.png);
+	ul {
+		width: 900px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+		height: 40px;
+		margin: auto;
+		a {
+			height: 50px;
+			font-size: 17px;
+			padding: 9px 20px;
+			color: black;
+			&:hover {
+				background: #307e34;
+			}
+		}
+		.first-page {
+			background: #307e34;
+		}
+	}
+}
+.mainAll {
+	background: #f3f3f3;
+	position: relative;
+}
+.main {
+	width: 1000px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	align-items: center;
+	background: white;
+	padding-bottom: 15px;
+	.send {
+		height: 60px;
+		line-height: 60px;
+		button {
+			width:100px;
+			height: 30px;
+			background: #097921;
+			box-shadow: 0 5px 5px #ccc;
+			border: none;
+			border-radius: 3px;
+			margin-right: 25px;
+		}
+	}
+	.todayLost {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		width: 1000px;
+		height: 250px;
+		overflow: hidden;
+		.lunbo {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		div {
+			width: 1000px;
+			display: flex;
+			flex-direction: row;
+			height: 250px;
+			img {
+				width: 239px;
+				background: #b2b2b2;
+				height: 230px;
+				padding: 5px;
+				border-right: 1px solid #ccc;
+			}
+		}
+		img {
+			width: 1000px;
+			height: 250px;
+			background: black;
+		}
+		span {
+			position: absolute;
+			left: 7px;
+			top: 7px;
+			color: white;
+			font-size: 20px;
+		}
+	}
+	.bar {
+		padding: 0 10px;
+		width: 950px;
+		display: flex;
+		justify-content: space-between;
+		height: 35px;
+		align-items: center;
+		span {
+			padding-left: 10px;
+		}
+	}
+	.lostSpace {
+		display: flex;
+		flex-direction: row;
+		width: 850px;
+		div {
+			position: relative;
+		}
+		.most {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			div {
+				height: 100px;
+			}
+		}
+		span {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			font-size: 20px;
+			color: white;
+		}
+		.teaching {
+			width: 230px;
+			height: 127px;
+		}
+		.playground {
+			width: 290px;
+			height: 127px;
+		}
+		.lab {
+			height: 127px;
+			width: 200px;
+		}
+		.downStreet {
+			height: 128px;
+			width: 250px;
+		}
+		.dling {
+			height: 128px;
+			width: 220px;
+		}
+		.digital {
+			height: 128px;
+			width: 250px;
+		}
+		.road {
+			width: 130px;
+		}
+	}
+}
+.footer {
+	padding: 20px auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;padding: 20px;
+	p {
+		letter-spacing: 2px;
+		font-size: 15px;
+		color: #716868;
+
+	}
+}
+.warn {
+	left: 0;
+	top: 45px;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	width: 160px;
+	justify-content: center;
+	align-items: center;
+	background: white;
+	.bar {
+		height: 50px;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #4caf50;
+		border-radius: 0 5px 0 0;
+	}
+	.content {
+		letter-spacing: 2px;
+		width: 110px;
+		height: auto;
+		font-size: 15px;
+		color: #786f6f;
+		padding-top: 20px;
+		border-radius: 0 0 5px 0;
+		padding-bottom: 20px;
+	}
+}
+.goodBang {
+	right: 0;
+	top: 45px;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	width: 160px;
+	justify-content: center;
+	align-items: center;
+	background: white;
+	overflow: hidden;
+	.title {
+		height: 50px;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #4caf50;
+		border-radius: 0 5px 0 0;
+	}
+	.bar {
+		li {
+			padding-bottom: 10px;
+			padding-top: 10px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: row;
+			border-bottom: 1px solid #ccc;
+			.result {
+				display: flex;
+				justify-content: center;
+				align-items: left;
+				flex-direction: column;
+			}
+			div {
+				position: relative;
+			}
+		}
+		img {
+			height: 40px;
+			width: 40px;
+			padding-right: 10px;
+			border-radius: 50%;
+		}
+		.spe {
+			height: 30px;
+			width: 30px;
+			position: absolute;
+			margin: auto;
+			top: -10px;
+		}
+		font-size: 8px;
+		height: 320px;
+	}
+}

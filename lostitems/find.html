@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/find.css">
+</head>
+<body>
+	<img class="bc" src="imgs/signIn.png">
+	<div class="all">
+		<div class="bar">
+			<div class="return"><span><</span>返回</div>
+			<div class="title">发布失物</div>
+		</div>
+		<div class="main">
+			<div class="form">
+				<div class="logo">
+					<div>
+						<img src="imgs/send.png" id="loc_img" alt="">
+						<input type="file" name="findItems" id="pstimg" accept="image/*"/>
+					</div>
+				</div>
+				<div class="input">
+					<div><span>时间</span><input class="time" type="text" placeholder="2018-11-07"></div>
+					<div class="fenlei"><span>地点</span>
+						<input type="text" readonly="readonly" placeholder="请选择">
+						<div class="jiantou"></div>
+						<ul>
+							<li class="space">教学楼</li>
+							<li class="space">食堂</li>
+							<li class="space">操场</li>
+							<li class="space">实验楼</li>
+							<li class="space">图书馆</li>
+							<li class="space">学校周边</li>
+							<li class="space">其他地区</li>
+						</ul>
+					</div>
+					<div  class="fenlei">
+						<span>分类</span>
+						<input type="text" readonly="readonly" placeholder="请选择">
+						<div class="jiantou"></div>
+						<ul>
+							<li class="card">证件类</li>
+							<li class="card">电子产品类</li>
+							<li class="card">书籍</li>
+							<li class="card">包类</li>
+							<li class="card">其他</li>
+						</ul>
+					</div>
+					<div><span>备注</span><input type="text" class="planB" placeholder="字数不多于20个字"></div>
+					<button id="submmit">提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/common.js"></script>
+<script src="js/find.js"></script>
+</html>
